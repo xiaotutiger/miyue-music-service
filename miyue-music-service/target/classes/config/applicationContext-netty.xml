@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+	<!-- pipline factory -->
+	<bean id="serverPipelineFactory" class="com.miyue.netty.base.ServerPipelineFactory">
+	</bean>
+
+	<!-- container -->
+	<bean id="nettyContainer" class="com.miyue.netty.container.SpringNettyContainer"
+		init-method="init">
+		<property name="port">
+			<value>${netty.port}</value>
+		</property>
+		<property name="asePath">
+			<value>${aes.key.path}</value>
+		</property>
+	</bean>
+	<!-- handler -->
+	<bean id="urlHandlerMap" class="java.util.concurrent.ConcurrentHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="myHandler">
+					<ref bean="myHandler" />
+				</entry>
+				<entry key="baseHandler">
+					<ref bean="baseHandler"/>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<!-- cdsHandlerMap -->
+	<bean id="cdsHandlerMap" class="java.util.concurrent.ConcurrentHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="myHandler">
+					<ref bean="myHandler" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="mainServerHandler" class="com.miyue.netty.handler.MainServerHandler">
+	</bean>
+	<bean id="myHandler" class="com.miyue.netty.handler.MyHandler">
+	</bean>
+	<bean id="baseHandler" class="com.miyue.netty.handler.BaseHandler">
+	</bean>
+	
+</beans>

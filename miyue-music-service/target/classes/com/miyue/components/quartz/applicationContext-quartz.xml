@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger"/>
+			</list>
+		</property>
+		<property name="configLocation" value="classpath:/com/miyue/components/quartz/quartz.properties"/>
+	</bean>
+
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetail"/>
+		<property name="cronExpression" value="${quartz.scheduler}"/>
+	</bean>
+
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="myQuartz"/>
+		<property name="targetMethod" value="startQuartz"/>
+	</bean>
+
+	<bean id="myQuartz" class="com.miyue.components.quartz.MyQuartz"
+		  autowire="byName" lazy-init="true">
+	</bean>
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MyDao">
+
+	<resultMap id="myDaoResult" class="com.miyue.pojo.MyBean">
+		<result property="name" column="name"/>
+	</resultMap>
+
+	<select id="com.miyue.pojo.MyBean.select" resultMap="myDaoResult" parameterClass="java.lang.Integer">
+	<![CDATA[
+		select name from browser_web_page where id=#id#;
+		]]> 
+	</select>
+	
+</sqlMap>

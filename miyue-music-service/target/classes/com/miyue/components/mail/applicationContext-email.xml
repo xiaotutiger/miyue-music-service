@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+	default-lazy-init="true">
+
+	<description>Email配置</description>
+
+	<!-- 邮件发送器 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mailSender.host}" />
+		<!-- 可不写 -->
+		<property name="port" value="${mailSender.port}" />
+		<property name="username" value="${mailSender.username}" />
+		<property name="password" value="${mailSender.password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">${mailSender.mail.smtp.timeout}</prop>
+				<!-- 使用gmail smtp server的必须参数 ,ssl-->
+				<prop key="mail.smtp.starttls.enable">${mailSender.mail.smtp.starttls.enable}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 文本邮件服务类 -->
+	<bean id="simpleMailService" class="com.miyue.components.mail.SimpleMailService"/>
+	
+	<!-- 纯文本message -->  
+	<bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">  
+    	<property name="to" value="${simpleMailMessage.to}" />
+    	<property name="from" value="${mailSender.username}" />  
+    	<property name="subject" value="${simpleMailMessage.subject}" />  
+	</bean>  
+	
+</beans>
