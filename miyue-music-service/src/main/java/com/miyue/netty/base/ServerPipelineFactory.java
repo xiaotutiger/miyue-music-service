@@ -21,9 +21,8 @@ public class ServerPipelineFactory implements ChannelPipelineFactory {
 	public static double blockingCoefficient = 0.8;
 	public static int numberOfCores = Runtime.getRuntime().availableProcessors();
 	public static final int poolSize = (int)(numberOfCores / (1 - blockingCoefficient));
-	public static OrderedMemoryAwareThreadPoolExecutor executor= new OrderedMemoryAwareThreadPoolExecutor(poolSize, 0, 0);
-
-	public static ExecutionHandler executionHandler = new ExecutionHandler(executor); 
+	public static final OrderedMemoryAwareThreadPoolExecutor executor= new OrderedMemoryAwareThreadPoolExecutor(poolSize, 0, 0);
+	public static final ExecutionHandler executionHandler = new ExecutionHandler(executor); 
 	public ChannelPipeline getPipeline() throws Exception {
 		ChannelPipeline pipeline = Channels.pipeline();
 		pipeline.addLast("execution", executionHandler);
