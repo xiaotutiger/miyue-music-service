@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -27,6 +29,7 @@ public class SpringNettyContainer {
 	private int port;
 	private String asePath;
 	private static byte[]key;
+	private static int argPort = -1;
 	private static final Logger logger = Logger.getLogger("container");
 	public static ApplicationContext ctx;
 	private static String log4jPath = "/usr/miyue/conf/miyue-netty-service-log4j.xml";
@@ -60,11 +63,18 @@ public class SpringNettyContainer {
 	}
 
 	public void setPort(int port) {
-		this.port = port;
+		this.port = (argPort != -1) ? argPort : port;
 	}
-
 	public static void main(String[] args) {
 		logger.info("app path is:" + System.getProperty("user.dir"));
+		String appPath = System.getProperty("user.dir");
+		if(args.length > 0 && StringUtils.isNotEmpty(args[0]) && NumberUtils.isNumber(args[0])){
+			argPort = NumberUtils.toInt(args[0]);
+		}
+		if(!new File(log4jPath).exists()){
+			log4jPath = appPath + File.separator + "browser-netty-service-log4j.xml";
+			logger.info("use the appPath log4jPath");
+		}
 		DOMConfigurator.configureAndWatch(log4jPath);
 		logger.info("###################################");
 		logger.info("start nettyContainer....");
