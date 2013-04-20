@@ -166,10 +166,19 @@
 			<artifactId>google-collections</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-spring</artifactId>
+			<version>3.3</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<repositories>
-
 		<repository>
 			<id>Sonatype</id>
 			<name>Sonatype Release</name>
