@@ -1,3 +1,3 @@
 this is a server generic framework
 intro:
-	spring、netty、simple spring memcached ibatis, intergration
+	spring、netty、simple spring memcached ibatis, integration
