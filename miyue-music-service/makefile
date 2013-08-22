@@ -2,13 +2,11 @@ all:help
 jar:
 	mvn assembly:assembly
 run:	
-	nohup java -jar target/skymobi-netty-service-0.0.1-SNAPSHOT-executable.jar &
+	nohup java -jar target/miyue-netty-service-0.0.1-SNAPSHOT-executable.jar &
 clean:
 	rm -rf target
 pid:
-	ps aux|grep skymobi-netty-service |awk '{print $2}'
-scp:
-	scp -P28116 target/skymobi-netty-service-0.0.1-SNAPSHOT-executable.jar wapproxy@122.224.212.131:/home/wapproxy/
+	ps aux|grep miyue-netty-service |awk '{print $2}'
 see:
 	tail -f nohup.out
 help:
